@@ -3,7 +3,7 @@ name: Test tap-airtable
 on: [push]
 
 jobs:
-  linting:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,11 +23,11 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-      - name: Run lint command from tox.ini
+      - name: Run pre-commit
         run: |
           poetry run pre-commit run -a
 
-  pytest:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -49,4 +49,4 @@ jobs:
           poetry install
       - name: Test with pytest
         run: |
-          poetry run pytest --capture=no
+          poetry run pytest
