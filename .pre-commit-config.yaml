@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: check-toml
+      - id: fix-byte-order-marker
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: detect-private-key
+      - id: forbid-submodules
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy tap_airtable
+        pass_filenames: false
+        language: system
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff tap_airtable
+        entry: ruff tap_airtable
+        pass_filenames: false
+        language: system

@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "tap-airtable"
+version = "0.0.1"
+description = "`tap-airtable` is a Singer tap for Airtable, built with the Meltano SDK for Singer Taps."
+authors = ["Tomas Votava"]
+keywords = ["ELT", "Airtable"]
+license = "Apache 2.0"
+
+[tool.poetry.dependencies]
+python = "<3.11,>=3.9"
+singer-sdk = "*"
+requests = "^2.31.0"
+
+
+backoff = "^2.2.1"
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.10.0"
+pytest = "^8.2.0"
+ruff = "^0.4.4"
+
+
+types-requests = "^2.31.0.20240406"
+pre-commit = "^3.7.1"
+[build-system]
+requires = ["poetry-core>=1.0.8"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+# CLI declaration
+tap-airtable = 'tap_airtable.tap:TapAirtable.cli'
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    #"D",
+    "E",
+    "F",
+    "B",
+    "I",
+    "N",
+    "UP",
+    "S",
+    "A",
+    "DTZ",
+    "PT",
+    "SIM",
+    "PTH",
+    "PD",
+    "RUF",
+    "T20",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["tap_airtable"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "S101",   # allow asserts in tests
+    "RUF018", # allow asserts with walrus in tests
+]
+
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["singer_sdk.*"]
+ignore_missing_imports = true

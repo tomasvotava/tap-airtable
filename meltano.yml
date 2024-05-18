@@ -1,0 +1,28 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: tap-airtable
+environments:
+  - name: dev
+plugins:
+  extractors:
+    - name: tap-airtable
+      namespace: tap_airtable
+      pip_url: -e .
+      capabilities:
+        - state
+        - catalog
+        - discover
+      settings:
+        - name: token
+          kind: string
+          sensitive: true
+        - name: base_ids
+          kind: array
+        - name: table_mapping
+          kind: object
+      select:
+        - "*.*"
+  loaders:
+    - name: target-jsonl
+      variant: andyh1203
+      pip_url: target-jsonl
