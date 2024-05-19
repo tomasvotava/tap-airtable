@@ -4,8 +4,10 @@ version = "0.1.0"
 description = "tap-airtable is a Singer tap for Airtable, built with the Meltano SDK for Singer Taps."
 authors = ["Tomas Votava"]
 keywords = ["ELT", "Airtable"]
-license = "Apache 2.0"
+license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/tomasvotava/tap-airtable"
+repository = "https://github.com/tomasvotava/tap-airtable.git"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
