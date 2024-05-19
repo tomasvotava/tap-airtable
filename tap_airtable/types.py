@@ -1,6 +1,8 @@
+from typing import Any
+
 from singer_sdk import typing as th
 
-AIRTABLE_TO_SINGER_MAPPING = {
+AIRTABLE_TO_SINGER_MAPPING: dict[str, Any] = {
     "singleLineText": th.StringType,
     "email": th.StringType,
     "url": th.StringType,
@@ -9,21 +11,21 @@ AIRTABLE_TO_SINGER_MAPPING = {
     "percent": th.StringType,
     "currency": th.StringType,
     "singleSelect": th.StringType,
-    "multipleSelects": th.StringType,
+    "multipleSelects": th.ArrayType(th.StringType),
     "singleCollaborator": th.StringType,
-    "multipleCollaborators": th.StringType,
-    "multipleRecordLinks": th.StringType,
+    "multipleCollaborators": th.ArrayType(th.StringType),
+    "multipleRecordLinks": th.ArrayType(th.StringType),
     "date": th.DateType,
     "dateTime": th.DateTimeType,
     "phoneNumber": th.StringType,
-    "multipleAttachments": th.StringType,
+    "multipleAttachments": th.ArrayType(th.ObjectType(additional_properties=True)),
     "checkbox": th.BooleanType,
     "formula": th.StringType,
     "createdTime": th.DateTimeType,
     "rollup": th.StringType,
     "count": th.StringType,
     "lookup": th.StringType,
-    "multipleLookupValues": th.StringType,
+    "multipleLookupValues": th.ArrayType(th.StringType),
     "autoNumber": th.StringType,
     "barcode": th.StringType,
     "rating": th.StringType,

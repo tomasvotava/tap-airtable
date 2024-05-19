@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, cast
 
 from singer_sdk import typing as th
 
@@ -14,7 +14,7 @@ class AirtableField:
 
     @property
     def singer_type(self) -> type[th.JSONTypeHelper[Any]]:
-        return AIRTABLE_TO_SINGER_MAPPING[self.field_type]
+        return cast(type[th.JSONTypeHelper[Any]], AIRTABLE_TO_SINGER_MAPPING[self.field_type])
 
     def to_singer_property(self) -> th.Property[Any]:
         return th.Property(self.name, self.singer_type, required=False)
