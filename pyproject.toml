@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-airtable"
-version = "0.0.1"
+version = "0.1.0"
 description = "`tap-airtable` is a Singer tap for Airtable, built with the Meltano SDK for Singer Taps."
 authors = ["Tomas Votava"]
 keywords = ["ELT", "Airtable"]
