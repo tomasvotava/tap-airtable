@@ -1,106 +1,60 @@
 # tap-airtable
 
-`tap-airtable` is a Singer tap for Airtable.
+`tap-airtable` is a Singer tap for Airtable usable with Meltano.
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 ## Installation
 
-- [ ] `Developer TODO:` Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
+### Standalone
+
+You can install `tap-airtable` using `pipx` to install it globally on your system:
 
 ```bash
 pipx install tap-airtable
+```
+
+### With Meltano
+
+If you're using this tap with Meltano, you can install it as an extractor.
+The tap is not yet available in the Meltano Hub, so you will need to install it from the source.
+
+```bash
+meltano add extractor tap-airtable --from-ref https://raw.githubusercontent.com/tomasvotava/tap-airtable/master/tap-airtable.yml
 ```
 
 ## Configuration
 
 ### Accepted Config Options
 
-- [ ] `Developer TODO:` Provide a list of config options accepted by the tap.
+| Property | Required | Description |
+|:---|:----|:---|
+| `token` | Yes | Airtable API token |
+| `base_ids` | No | List of base IDs to extract data from (if not given, all bases are extracted) |
+| `table_mapping` | No | Mapping of Airtable table ids to target table names (if not given table names from Airtable are used) |
 
-A full list of supported settings and capabilities for this
-tap is available by running:
+If `table_mapping` is not provided, the tap will use the table names from Airtable as target table names.
+This may not be ideal if the table names are not human-readable or if they contain special characters.
 
-```bash
-tap-airtable --about
+### Standalone Configuration
+
+```json
+{
+    "token": "<your airtable token>",
+    "base_ids": ["<base_id_1>", "<base_id_2>"],
+    "table_mapping": {
+        "<table_id_1>": "target_table_name_1",
+        "<table_id_2>": "target_table_name_2"
+    }
+}
 ```
 
-### Configure using environment variables
-
-This Singer tap will automatically import any environment variables within the working directory's
-`.env` if the `--config=ENV` is provided, such that config values will be considered if a matching
-environment variable is set either in the terminal context or in the `.env` file.
-
-### Source Authentication and Authorization
-
-- [ ] `Developer TODO:` If your tap requires special access on the source system, or any special authentication requirements, provide those here.
-
-## Usage
-
-You can easily run `tap-airtable` by itself or in a pipeline using [Meltano](https://meltano.com/).
-
-### Executing the Tap Directly
+Run the tap with:
 
 ```bash
-tap-airtable --version
-tap-airtable --help
-tap-airtable --config CONFIG --discover > ./catalog.json
+tap-airtable --config config.json
 ```
 
-## Developer Resources
+### Meltano Configuration
 
-- [ ] `Developer TODO:` As a first step, scan the entire project for the text "`TODO:`" and complete any recommended steps, deleting the "TODO" references once completed.
-
-### Initialize your Development Environment
-
-```bash
-pipx install poetry
-poetry install
-```
-
-### Create and Run Tests
-
-Create tests within the `tap_airtable/tests` subfolder and
-  then run:
-
-```bash
-poetry run pytest
-```
-
-You can also test the `tap-airtable` CLI interface directly using `poetry run`:
-
-```bash
-poetry run tap-airtable --help
-```
-
-### Testing with [Meltano](https://www.meltano.com)
-
-_**Note:** This tap will work in any Singer environment and does not require Meltano.
-Examples here are for convenience and to streamline end-to-end orchestration scenarios._
-
-Your project comes with a custom `meltano.yml` project file already created. Open the `meltano.yml` and follow any _"TODO"_ items listed in
-the file.
-
-Next, install Meltano (if you haven't already) and any needed plugins:
-
-```bash
-# Install meltano
-pipx install meltano
-# Initialize meltano within this directory
-cd tap-airtable
-meltano install
-```
-
-Now you can test and orchestrate using Meltano:
-
-```bash
-# Test invocation:
-meltano invoke tap-airtable --version
-# OR run a test `elt` pipeline:
-meltano elt tap-airtable target-jsonl
-```
-
-### SDK Dev Guide
-
-See the [dev guide](https://sdk.meltano.com/en/latest/dev_guide.html) for more instructions on how to use the SDK to
-develop your own taps and targets.
+Run `meltano config tap-airtable set --interactive` to set the configuration interactively.
