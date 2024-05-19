@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Any, cast
 
 from singer_sdk import typing as th
+from slugify import slugify
 
 from tap_airtable.types import AIRTABLE_TO_SINGER_MAPPING
 
@@ -17,7 +18,7 @@ class AirtableField:
         return cast(type[th.JSONTypeHelper[Any]], AIRTABLE_TO_SINGER_MAPPING[self.field_type])
 
     def to_singer_property(self) -> th.Property[Any]:
-        return th.Property(self.name, self.singer_type, required=False)
+        return th.Property(slugify(self.name, separator="_"), self.singer_type, required=False)
 
 
 @dataclass
@@ -29,7 +30,7 @@ class AirtableTable:
     def to_singer_schema(self) -> th.PropertiesList:
         return th.PropertiesList(
             th.Property("id", th.StringType, required=True),
-            th.Property("createdTime", th.DateTimeType, required=True),
+            th.Property("createdtime", th.DateTimeType, required=True),
             *(field.to_singer_property() for field in self.fields),
         )
 

@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from typing import Any, ClassVar
 
 from singer_sdk.streams import Stream
+from slugify import slugify
 
 from tap_airtable.client import AirtableClient
 from tap_airtable.entities import AirtableTable
@@ -21,13 +22,13 @@ class BaseAirtableStream(Stream):
         client = AirtableClient(self.config["token"])
         for record in client.get_records(self.base_id, self.original_airtable_table.id):
             fields = record.pop("fields", {})
-            yield {**record, **fields}
+            yield {slugify(key, separator="_"): value for key, value in {**record, **fields}.items()}
 
 
 def airtable_stream_factory(table_base_id: str, table: AirtableTable) -> type[BaseAirtableStream]:
     class AirtableStream(BaseAirtableStream):
         original_airtable_table = table
-        name = table.name
+        name = slugify(table.name, separator="_")
         base_id = table_base_id
 
         @property
