@@ -1,0 +1,14 @@
+.meltano/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.tox/
+.venv/
+output/
+plugins/
+.coverage
+.env
+.python-version
+catalog.json
+config.json
+coverage.*
