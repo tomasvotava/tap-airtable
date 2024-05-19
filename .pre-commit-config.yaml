@@ -24,7 +24,7 @@ repos:
     repo: https://github.com/Yelp/detect-secrets
     rev: v1.4.0
   - hooks:
-      - entry: poetry run ruff tap_airtable
+      - entry: poetry run ruff check --fix tap_airtable
         id: ruff
         language: system
         name: ruff tap_airtable
