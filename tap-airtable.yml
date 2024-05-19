@@ -1,0 +1,30 @@
+capabilities:
+  - catalog
+  - discover
+description: Download tables from bases in Airtable.
+domain_url: https://airtable.com/developers/web/api/introduction
+keywords:
+  - api
+  - meltano_sdk
+label: Airtable
+logo_url: /airtable.png
+maintenance_status: active
+name: tap-airtable
+namespace: tap_airtable
+pip_url: git+https://github.com/tomasvotava/tap-airtable.git
+quality: gold
+repo: https://github.com/tomasvotava/tap-airtable
+settings:
+  - description: Airtable token.
+    kind: string
+    label: Airtable API Key
+    name: token
+  - description: Airtable base IDs (if not provided, all bases will be downloaded)
+    kind: array
+    label: Airtable Base IDs
+    name: base_ids
+  - description: Table mapping (id => name, use this to override table names)
+    kind: object
+    label: Table Mapping
+    name: table_mapping
+variant: tomasvotava
