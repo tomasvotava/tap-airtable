@@ -17,7 +17,13 @@ pipx install tap-airtable
 ### With Meltano
 
 If you're using this tap with Meltano, you can install it as an extractor.
-The tap is not yet available in the Meltano Hub, so you will need to install it from the source.
+The tap is the default extractor for Airtable on [MeltanoHub](https://hub.meltano.com/extractors/tap-airtable) and can be installed using the following command:
+
+```bash
+meltano add extractor tap-airtable
+```
+
+You can also install the extractor directly from the source.
 
 ```bash
 meltano add extractor tap-airtable --from-ref https://raw.githubusercontent.com/tomasvotava/tap-airtable/master/tap-airtable.yml
