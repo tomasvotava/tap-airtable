@@ -47,6 +47,15 @@ addopts = [
     "--cov-report=lcov",
 ]
 
+# Singer SDK's deprecation warning
+filterwarnings = [
+    "ignore:pkg_resources is deprecated as an API:DeprecationWarning",
+    "ignore:.*pkg_resources.declare_namespace.*:DeprecationWarning",
+    "ignore:jsonschema.RefResolver:DeprecationWarning",
+    "ignore:Importing Validator directly:DeprecationWarning",
+]
+
+
 [tool.poetry.scripts]
 # CLI declaration
 tap-airtable = 'tap_airtable.tap:TapAirtable.cli'
