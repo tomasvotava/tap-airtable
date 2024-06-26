@@ -28,6 +28,7 @@ jobs:
           poetry run pre-commit run -a
 
   test:
+    environment: test
     env:
       AIRTABLE_INTEGRATION_TEST_TOKEN: "${{secrets.AIRTABLE_INTEGRATION_TEST_TOKEN}}"
     runs-on: ubuntu-latest
