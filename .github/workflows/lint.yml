@@ -1,16 +1,14 @@
-name: Test
-on:
-  workflow_run:
-    workflows: [Lint]
-    types:
-      - completed
+name: Lint
+
+on: [pull_request]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11"]
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -25,8 +23,6 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-      - name: Test with pytest
-        env:
-          AIRTABLE_INTEGRATION_TEST_TOKEN: "${{secrets.AIRTABLE_INTEGRATION_TEST_TOKEN}}"
+      - name: Run pre-commit
         run: |
-          poetry run pytest
+          poetry run pre-commit run -a
