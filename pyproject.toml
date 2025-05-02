@@ -10,7 +10,7 @@ homepage = "https://github.com/tomasvotava/tap-airtable"
 repository = "https://github.com/tomasvotava/tap-airtable.git"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 singer-sdk = "*"
 requests = "^2.32.0"
 backoff = "^2.2.1"
