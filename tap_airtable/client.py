@@ -2,7 +2,7 @@
 
 import logging
 from collections.abc import Iterable
-from typing import Any, Optional, cast
+from typing import Any, cast
 from urllib.parse import urljoin
 
 import backoff
@@ -25,7 +25,7 @@ class AirtableClient:
         self.session.headers.update({"authorization": f"Bearer {self.token}"})
 
     @backoff.on_exception(backoff.expo, (requests.HTTPError,), max_tries=7, max_time=120)
-    def _get(self, endpoint: str, params: Optional[dict[str, Any]] = None) -> requests.Response:
+    def _get(self, endpoint: str, params: dict[str, Any] | None = None) -> requests.Response:
         response = self.session.get(urljoin(self.base_url, endpoint), params=params)
         try:
             response.raise_for_status()
@@ -40,7 +40,7 @@ class AirtableClient:
         response.raise_for_status()
         return cast(list[dict[str, Any]], response.json()["tables"])
 
-    def get_bases(self, base_ids: Optional[list[str]] = None) -> list[AirtableBase]:
+    def get_bases(self, base_ids: list[str] | None = None) -> list[AirtableBase]:
         response = self._get("meta/bases")
         data = response.json()
         server_base_ids = {base["id"] for base in data["bases"]}

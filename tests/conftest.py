@@ -49,7 +49,7 @@ test_base_bar = AirtableBase(
 )
 
 
-@pytest.fixture()
+@pytest.fixture
 def _patch_client(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("tap_airtable.client.AirtableClient.get_bases", lambda _, __: [test_base_foo, test_base_bar])
 
@@ -64,7 +64,7 @@ def integration_test_token_fixture() -> str:
     return token
 
 
-@pytest.fixture()
+@pytest.fixture
 def integration_test_tap(integration_test_token: str) -> TapAirtable:
     return TapAirtable(
         config={
@@ -75,6 +75,6 @@ def integration_test_tap(integration_test_token: str) -> TapAirtable:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def integration_test_client(integration_test_token: str) -> AirtableClient:
     return AirtableClient(integration_test_token)

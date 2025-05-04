@@ -1,7 +1,7 @@
 """Stream type classes for tap-airtable."""
 
 from collections.abc import Iterable, Mapping
-from typing import Any, ClassVar, Union
+from typing import Any, ClassVar
 
 from singer_sdk.streams import Stream
 from slugify import slugify
@@ -18,7 +18,7 @@ class BaseAirtableStream(Stream):
 
     def get_records(
         self, context: Mapping[str, Any] | None
-    ) -> Iterable[Union[dict[str, Any], tuple[dict[str, Any], dict[str, Any]]]]:
+    ) -> Iterable[dict[str, Any] | tuple[dict[str, Any], dict[str, Any]]]:
         client = AirtableClient(self.config["token"])
         for record in client.get_records(self.base_id, self.original_airtable_table.id):
             fields = record.pop("fields", {})
