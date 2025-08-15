@@ -6,7 +6,7 @@ from typing import Any, ClassVar
 from singer_sdk.streams import Stream
 from slugify import slugify
 
-from tap_airtable.client import AirtableClient
+from tap_airtable.client import AirtableBase, AirtableClient
 from tap_airtable.entities import AirtableTable
 
 
@@ -25,11 +25,11 @@ class BaseAirtableStream(Stream):
             yield {slugify(key, separator="_"): value for key, value in {**record, **fields}.items()}
 
 
-def airtable_stream_factory(table_base_id: str, table: AirtableTable) -> type[BaseAirtableStream]:
+def airtable_stream_factory(base: AirtableBase, table: AirtableTable) -> type[BaseAirtableStream]:
     class AirtableStream(BaseAirtableStream):
         original_airtable_table = table
-        name = slugify(table.name, separator="_")
-        base_id = table_base_id
+        name = "-".join(slugify(name, separator="_") for name in [base.name, table.name])
+        base_id = base.id
 
         @property
         def schema(self) -> dict[str, Any]:

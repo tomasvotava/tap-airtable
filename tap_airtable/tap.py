@@ -47,5 +47,5 @@ class TapAirtable(Tap):
                 if table.id in mapping:
                     logger.debug(f"Renaming table {table.name} => {mapping[table.id]}")
                     table.name = mapping[table.id]
-                streams.append(airtable_stream_factory(base.id, table)(tap=self))
+                streams.append(airtable_stream_factory(base, table)(tap=self))
         return streams
