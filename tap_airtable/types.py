@@ -66,4 +66,5 @@ AIRTABLE_TO_SINGER_MAPPING: dict[str, Any] = {
     "lastModifiedBy": th.StringType,
     "externalSyncSource": th.StringType,
     "aiText": th.StringType,
+    "manualSort": th.StringType,
 }
